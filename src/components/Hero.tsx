@@ -1,6 +1,8 @@
 "use client";
 
+import { useRef } from "react";
 import { motion, type Variants } from "framer-motion";
+import { useHeroParallax } from "@/lib/useHeroParallax";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -16,14 +18,30 @@ const fadeUp: Variants = {
 };
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const blobARef = useRef<HTMLDivElement>(null);
+  const blobBRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useHeroParallax({
+    section: sectionRef,
+    blobA: blobARef,
+    blobB: blobBRef,
+    content: contentRef,
+  });
+
   return (
-    <section className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-base px-6">
+    <section
+      ref={sectionRef}
+      className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden bg-base px-6"
+    >
       {/* Signature: drifting aurora blobs */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
       >
         <div
+          ref={blobARef}
           className="aurora-blob-a absolute left-1/2 top-1/3 h-[38rem] w-[38rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] sm:h-[46rem] sm:w-[46rem]"
           style={{
             background:
@@ -31,6 +49,7 @@ export default function Hero() {
           }}
         />
         <div
+          ref={blobBRef}
           className="aurora-blob-b absolute left-1/2 top-2/3 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[110px] sm:h-[38rem] sm:w-[38rem]"
           style={{
             background:
@@ -50,7 +69,10 @@ export default function Hero() {
       </div>
 
       {/* Hero content */}
-      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
+      <div
+        ref={contentRef}
+        className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center"
+      >
         <motion.span
           initial="hidden"
           animate="visible"
