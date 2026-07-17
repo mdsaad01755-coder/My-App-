@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+:root {
+  --color-base: #05060a;
+  --color-panel: #0b0e1a;
+  --color-panel-raised: #10142400;
+  --color-violet: #7c5cff;
+  --color-blue: #3e8eff;
+  --color-text: #e8e9f3;
+  --color-muted: #6b7089;
+  --color-border: #1c2033;
+}
+
+@theme inline {
+  --color-base: var(--color-base);
+  --color-panel: var(--color-panel);
+  --color-violet: var(--color-violet);
+  --color-blue: var(--color-blue);
+  --color-text: var(--color-text);
+  --color-muted: var(--color-muted);
+  --color-border: var(--color-border);
+  --font-display: "Segoe UI", system-ui, -apple-system, "Helvetica Neue",
+    Arial, sans-serif;
+  --font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial,
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-base);
+  color: var(--color-text);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Signature: drifting aurora blobs */
+@keyframes drift-a {
+  0% { transform: translate(-10%, -10%) scale(1); }
+  50% { transform: translate(6%, 8%) scale(1.15); }
+  100% { transform: translate(-10%, -10%) scale(1); }
+}
+
+@keyframes drift-b {
+  0% { transform: translate(8%, 5%) scale(1); }
+  50% { transform: translate(-8%, -12%) scale(1.1); }
+  100% { transform: translate(8%, 5%) scale(1); }
+}
+
+.aurora-blob-a {
+  animation: drift-a 22s ease-in-out infinite;
+}
+
+.aurora-blob-b {
+  animation: drift-b 26s ease-in-out infinite;
+}
+
+/* Subtle grain texture overlay for tactile depth */
+.grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-blob-a,
+  .aurora-blob-b {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
