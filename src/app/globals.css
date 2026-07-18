@@ -68,12 +68,44 @@ body {
   mix-blend-mode: overlay;
 }
 
+/* Slow-drifting mesh gradient layer behind the Hero content — reads as
+   ambient texture rather than a distinct moving shape. */
+@keyframes mesh-drift {
+  0% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+  50% { background-position: 30% 20%, 70% 80%, 60% 40%; }
+  100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+}
+
+.mesh-gradient {
+  background-image:
+    radial-gradient(at 20% 20%, rgba(124, 92, 255, 0.12) 0px, transparent 55%),
+    radial-gradient(at 80% 80%, rgba(62, 142, 255, 0.1) 0px, transparent 55%),
+    radial-gradient(at 50% 50%, rgba(124, 92, 255, 0.06) 0px, transparent 60%);
+  background-size: 180% 180%;
+  animation: mesh-drift 34s ease-in-out infinite;
+}
+
+/* Rotating gradient glow used behind the primary CTA button */
+@keyframes border-glow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .aurora-blob-a,
-  .aurora-blob-b {
+  .aurora-blob-b,
+  .mesh-gradient {
     animation: none;
   }
   html {
     scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  [data-headline-line] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

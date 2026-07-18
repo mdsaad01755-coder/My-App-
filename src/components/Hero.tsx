@@ -1,9 +1,12 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion, type Variants } from "framer-motion";
+import gsap from "gsap";
 import { useHeroParallax } from "@/lib/useHeroParallax";
 import HeroPortrait from "@/components/HeroPortrait";
+import MagneticButton from "@/components/MagneticButton";
+import { prefersReducedMotion } from "@/lib/performance";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -24,6 +27,7 @@ export default function Hero() {
   const blobBRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const portraitRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
 
   useHeroParallax({
     section: sectionRef,
@@ -32,6 +36,43 @@ export default function Hero() {
     content: contentRef,
     portrait: portraitRef,
   });
+
+  // Headline lines stagger in from below, 0.1s apart — GSAP rather than
+  // Framer Motion here since we want fine-grained per-line stagger
+  // control that reads cleanly as a single timeline.
+  useEffect(() => {
+    if (!headlineRef.current) return;
+
+    const lines = headlineRef.current.querySelectorAll<HTMLElement>(
+      "[data-headline-line]"
+    );
+    if (!lines.length) return;
+
+    // Reduced motion: skip the staggered choreography, but the lines
+    // must still end up visible — just snap them straight to their
+    // final state instead of animating.
+    if (prefersReducedMotion()) {
+      gsap.set(lines, { opacity: 1, y: 0 });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        lines,
+        { opacity: 0, y: 32 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: 0.55, // sits after the eyebrow badge's own entrance
+          stagger: 0.1,
+          ease: "power3.out",
+        }
+      );
+    }, headlineRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
@@ -59,6 +100,8 @@ export default function Hero() {
               "radial-gradient(circle, rgba(62,142,255,0.45) 0%, rgba(62,142,255,0) 70%)",
           }}
         />
+        {/* Ambient mesh gradient — very slow drift, reads as texture */}
+        <div className="mesh-gradient absolute inset-0" />
         {/* Grain texture for tactile depth */}
         <div className="grain-overlay absolute inset-0" />
         {/* Vignette to keep edges dark and focus centered */}
@@ -88,26 +131,27 @@ export default function Hero() {
             Now in early access
           </motion.span>
 
-          <motion.h1
-            initial="hidden"
-            animate="visible"
-            custom={0.1}
-            variants={fadeUp}
-            className="font-display text-[2.75rem] font-bold leading-[1.05] tracking-tight text-text sm:text-6xl md:text-7xl"
+          <h1
+            ref={headlineRef}
+            className="font-display text-[2.75rem] font-semibold leading-[1.08] tracking-[-0.02em] text-text sm:text-6xl md:text-7xl"
           >
-            Your SaaS Product Name,
-            <br />
-            <span className="bg-gradient-to-r from-violet via-violet to-blue bg-clip-text text-transparent">
+            <span data-headline-line className="block opacity-0">
+              Your SaaS Product Name,
+            </span>
+            <span
+              data-headline-line
+              className="block bg-gradient-to-r from-violet via-violet to-blue bg-clip-text text-transparent opacity-0"
+            >
               built for momentum.
             </span>
-          </motion.h1>
+          </h1>
 
           <motion.p
             initial="hidden"
             animate="visible"
             custom={0.22}
             variants={fadeUp}
-            className="mt-6 max-w-xl text-balance text-base leading-relaxed text-muted sm:text-lg"
+            className="mt-7 max-w-xl text-balance text-base leading-relaxed text-muted sm:text-lg"
           >
             Ship faster, automate the busywork, and give your team one place
             to plan, build, and launch — without the operational drag.
@@ -118,14 +162,15 @@ export default function Hero() {
             animate="visible"
             custom={0.34}
             variants={fadeUp}
-            className="mt-10 flex flex-col items-center gap-4 sm:flex-row"
+            className="mt-11 flex flex-col items-center gap-4 sm:flex-row"
           >
-            <button className="group relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-violet to-blue px-8 py-3.5 text-sm font-semibold text-white shadow-[0_0_0_0_rgba(124,92,255,0.5)] transition-shadow duration-300 hover:shadow-[0_0_40px_4px_rgba(124,92,255,0.45)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet">
+            <MagneticButton
+              variant="primary"
+              className="shadow-[0_0_0_0_rgba(124,92,255,0.5)] hover:shadow-[0_0_40px_4px_rgba(124,92,255,0.45)]"
+            >
               Try Free
-            </button>
-            <button className="inline-flex items-center justify-center rounded-full border border-border px-8 py-3.5 text-sm font-semibold text-text transition-colors duration-300 hover:border-violet/60 hover:bg-white/[0.03] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet">
-              Get Started
-            </button>
+            </MagneticButton>
+            <MagneticButton variant="secondary">Get Started</MagneticButton>
           </motion.div>
 
           <motion.p

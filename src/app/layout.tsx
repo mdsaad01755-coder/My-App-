@@ -17,6 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-base text-text">
+        <noscript>
+          <style>{`[data-headline-line] { opacity: 1 !important; }`}</style>
+        </noscript>
         <Preloader />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
