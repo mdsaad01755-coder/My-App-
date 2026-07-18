@@ -78,6 +78,11 @@ export function useHeroParallax({
           }
         }
       }, section);
+
+      // Ensure trigger start/end values reflect the final layout
+      // (fonts, images, and Lenis's wrapper can all shift measurements
+      // slightly after first paint).
+      ScrollTrigger.refresh();
     }
 
     build();

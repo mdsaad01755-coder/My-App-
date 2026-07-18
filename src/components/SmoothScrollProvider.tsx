@@ -51,11 +51,21 @@ export default function SmoothScrollProvider({
       // Keep ScrollTrigger's internal scroll position in sync with Lenis.
       lenis.on("scroll", ScrollTrigger.update);
 
+      // GSAP's own rAF ticker would otherwise fight with Lenis's — let
+      // Lenis drive the frame loop exclusively, and disable GSAP's lag
+      // smoothing so scrub animations don't jitter/catch-up oddly.
+      gsap.ticker.lagSmoothing(0);
+
       function raf(time: number) {
         lenisRef.current?.raf(time);
         rafId = requestAnimationFrame(raf);
       }
       rafId = requestAnimationFrame(raf);
+
+      // ScrollTriggers created before Lenis finished setting up its
+      // wrapper can end up with stale start/end measurements. Recalculate
+      // once Lenis is live so parallax offsets line up correctly.
+      ScrollTrigger.refresh();
     }
 
     setup();
