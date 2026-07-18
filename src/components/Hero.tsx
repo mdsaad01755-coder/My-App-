@@ -222,18 +222,3 @@ export default function Hero() {
     </section>
   );
 }
-
-/**
- * Temporary placeholder so the page has scrollable height beyond one
- * viewport, letting the Hero's scroll-linked parallax actually trigger.
- * This will be replaced by the real Features section in the next step.
- */
-export function ScrollPlaceholder() {
-  return (
-    <section className="relative flex min-h-[100svh] w-full items-center justify-center bg-panel px-6">
-      <p className="text-sm text-muted">
-        Features section coming in the next step →
-      </p>
-    </section>
-  );
-}
