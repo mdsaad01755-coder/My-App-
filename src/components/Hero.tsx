@@ -109,7 +109,7 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at center, transparent 35%, #05060a 90%)",
+              "radial-gradient(ellipse at center, transparent 35%, #08080c 90%)",
           }}
         />
       </div>
@@ -125,7 +125,7 @@ export default function Hero() {
             animate="visible"
             custom={0}
             variants={fadeUp}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-white/[0.03] px-4 py-1.5 text-xs font-medium tracking-wide text-muted"
+            className="glass-surface mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium tracking-wide text-muted"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-violet to-blue" />
             Now in early access
@@ -133,14 +133,14 @@ export default function Hero() {
 
           <h1
             ref={headlineRef}
-            className="font-display text-[2.75rem] font-semibold leading-[1.08] tracking-[-0.02em] text-text sm:text-6xl md:text-7xl"
+            className="font-heading text-[2.75rem] font-semibold leading-[1.08] tracking-[-0.01em] text-text sm:text-6xl md:text-7xl"
           >
             <span data-headline-line className="block opacity-0">
               Your SaaS Product Name,
             </span>
             <span
               data-headline-line
-              className="block bg-gradient-to-r from-violet via-violet to-blue bg-clip-text text-transparent opacity-0"
+              className="block bg-gradient-to-r from-silver via-violet to-blue bg-clip-text text-transparent opacity-0"
             >
               built for momentum.
             </span>

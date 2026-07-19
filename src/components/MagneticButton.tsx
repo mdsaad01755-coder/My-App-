@@ -85,7 +85,7 @@ export default function MagneticButton({
   const variantClass =
     variant === "primary"
       ? "text-white bg-gradient-to-r from-violet to-blue"
-      : "text-text border border-border hover:border-violet/60 hover:bg-white/[0.03]";
+      : "text-text border border-border-strong hover:border-silver/50 hover:bg-white/[0.04]";
 
   return (
     <button
@@ -96,7 +96,7 @@ export default function MagneticButton({
       {variant === "primary" && (
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute -inset-[2px] -z-10 rounded-full bg-gradient-to-r from-violet via-blue to-violet bg-[length:200%_100%] opacity-0 blur-md transition-opacity duration-500 [animation:border-glow_4s_linear_infinite] group-hover:opacity-70"
+          className="pointer-events-none absolute -inset-[2px] -z-10 rounded-full bg-gradient-to-r from-silver via-violet to-blue bg-[length:200%_100%] opacity-0 blur-md transition-opacity duration-500 [animation:border-glow_4s_linear_infinite] group-hover:opacity-70"
         />
       )}
       <span className="relative">{children}</span>

@@ -161,7 +161,7 @@ export default function HeroPortrait() {
       >
         <div
           ref={cardRef}
-          className="relative overflow-hidden rounded-[1.75rem] border border-white/10 shadow-[0_30px_80px_-20px_rgba(124,92,255,0.35)] transition-shadow duration-500 group-hover:shadow-[0_40px_100px_-16px_rgba(124,92,255,0.55)]"
+          className="relative overflow-hidden rounded-[1.75rem] border border-silver/15 shadow-[0_30px_80px_-20px_rgba(124,92,255,0.35)] transition-shadow duration-500 group-hover:shadow-[0_40px_100px_-16px_rgba(124,92,255,0.55)]"
           style={{ transformStyle: "preserve-3d", willChange: "transform" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element --

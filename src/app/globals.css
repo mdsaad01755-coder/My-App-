@@ -1,24 +1,45 @@
 @import "tailwindcss";
 
 :root {
-  --color-base: #05060a;
-  --color-panel: #0b0e1a;
-  --color-panel-raised: #10142400;
+  /* Deep, luxury-grade blacks — darker than the previous base/panel so
+     glass surfaces and glows have more room to read as premium. */
+  --color-base: #08080c;
+  --color-panel: #121214;
+  --color-panel-raised: #17171b;
+
+  /* Core accent stays violet/blue; metallic silver added as a third,
+     more neutral accent for borders, dividers, and understated glows —
+     keeps the palette from tipping into "just purple". */
   --color-violet: #7c5cff;
   --color-blue: #3e8eff;
-  --color-text: #e8e9f3;
-  --color-muted: #6b7089;
-  --color-border: #1c2033;
+  --color-silver: #c7c9d6;
+  --color-silver-dim: #8b8d9c;
+
+  --color-text: #f0f0f5;
+  --color-muted: #8a8d9e;
+  --color-border: #232329;
+  --color-border-strong: #2f2f38;
 }
 
 @theme inline {
   --color-base: var(--color-base);
   --color-panel: var(--color-panel);
+  --color-panel-raised: var(--color-panel-raised);
   --color-violet: var(--color-violet);
   --color-blue: var(--color-blue);
+  --color-silver: var(--color-silver);
+  --color-silver-dim: var(--color-silver-dim);
   --color-text: var(--color-text);
   --color-muted: var(--color-muted);
   --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+
+  /* Heading font: an editorial serif stack for a luxury feel on large
+     display type. Uses system-installed serif fonts (Georgia ships on
+     effectively every OS) rather than a Google-hosted font, so there's
+     no external font fetch in the build or at runtime. */
+  --font-heading: "Iowan Old Style", "Palatino Linotype", "Book Antiqua",
+    Georgia, "Times New Roman", serif;
   --font-display: "Segoe UI", system-ui, -apple-system, "Helvetica Neue",
     Arial, sans-serif;
   --font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial,
@@ -38,6 +59,34 @@ body {
   color: var(--color-text);
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphism surface: semi-transparent panel + backdrop blur, used
+   for cards and the nav bar. Falls back gracefully (just a translucent
+   panel, no blur) on browsers without backdrop-filter support. */
+.glass-surface {
+  background: rgba(18, 18, 20, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .glass-surface {
+    background: rgba(18, 18, 20, 0.4);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+  }
+}
+
+/* Metallic silver gradient border, used sparingly for a "forged metal"
+   accent edge — e.g. around cards on hover or premium badges. */
+.metallic-border {
+  border-image: linear-gradient(
+      135deg,
+      rgba(199, 201, 214, 0.6),
+      rgba(124, 92, 255, 0.35) 45%,
+      rgba(199, 201, 214, 0.15) 100%
+    )
+    1;
 }
 
 /* Signature: drifting aurora blobs */
@@ -80,7 +129,7 @@ body {
   background-image:
     radial-gradient(at 20% 20%, rgba(124, 92, 255, 0.12) 0px, transparent 55%),
     radial-gradient(at 80% 80%, rgba(62, 142, 255, 0.1) 0px, transparent 55%),
-    radial-gradient(at 50% 50%, rgba(124, 92, 255, 0.06) 0px, transparent 60%);
+    radial-gradient(at 50% 50%, rgba(199, 201, 214, 0.05) 0px, transparent 60%);
   background-size: 180% 180%;
   animation: mesh-drift 34s ease-in-out infinite;
 }
