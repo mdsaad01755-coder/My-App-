@@ -28,7 +28,7 @@ const fadeUp: Variants = {
 
 export default function About() {
   return (
-    <section className="relative w-full bg-panel px-6 py-24 sm:py-32">
+    <section className="relative w-full bg-base px-6 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-12">
           {/* Left: story */}
