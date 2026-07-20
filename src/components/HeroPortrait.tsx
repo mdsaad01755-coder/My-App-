@@ -143,7 +143,7 @@ export default function HeroPortrait() {
   return (
     <div
       ref={wrapRef}
-      className="relative mx-auto w-full max-w-[280px] sm:max-w-[320px] md:max-w-[380px]"
+      className="relative mx-auto w-full max-w-[280px] pb-8 sm:max-w-[320px] md:max-w-[380px]"
       style={{ perspective: "1200px" }}
     >
       {/* Dynamic drop shadow: separate layer so it can move/blur
@@ -151,7 +151,7 @@ export default function HeroPortrait() {
       <div
         ref={shadowRef}
         aria-hidden="true"
-        className="absolute inset-x-6 bottom-[-1.5rem] h-10 rounded-full bg-black/60 blur-[40px]"
+        className="absolute inset-x-6 bottom-2 h-10 rounded-full bg-black/60 blur-[40px]"
       />
 
       <div
@@ -159,6 +159,15 @@ export default function HeroPortrait() {
         className="group relative will-change-transform"
         style={{ transformStyle: "preserve-3d" }}
       >
+        {/* Glassmorphism outer frame: sits outside the image's own
+            rounded edge, never overlapping the face/subject — just a
+            thin glass ring that makes the card feel "set" into the
+            page rather than pasted on top of it. */}
+        <div
+          aria-hidden="true"
+          className="glass-surface pointer-events-none absolute -inset-3 -z-[1] rounded-[2.25rem]"
+        />
+
         <div
           ref={cardRef}
           className="relative overflow-hidden rounded-[1.75rem] border border-silver/15 shadow-[0_30px_80px_-20px_rgba(124,92,255,0.35)] transition-shadow duration-500 group-hover:shadow-[0_40px_100px_-16px_rgba(124,92,255,0.55)]"
@@ -195,10 +204,30 @@ export default function HeroPortrait() {
           />
         </div>
 
-        {/* Ambient accent glow behind the card */}
+        {/* Caption card: name + role, floating over the bottom-left of
+            the frame in its own glass surface — offset outside the
+            image bounds so it never covers the subject's face. */}
+        <div className="glass-surface absolute -bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-2.5 whitespace-nowrap rounded-full px-4 py-2.5 sm:-left-5 sm:translate-x-0">
+          <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet to-blue text-[11px] font-semibold text-white">
+            AR
+          </span>
+          <span className="flex flex-col leading-tight">
+            <span className="text-xs font-semibold text-text">
+              Alex Rivera
+            </span>
+            <span className="text-[11px] text-muted">Founder &amp; CEO</span>
+          </span>
+        </div>
+
+        {/* Ambient accent glow behind the card — brighter and wider than
+            before so the portrait reads as "floating in light". */}
         <div
           aria-hidden="true"
-          className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-violet/30 via-blue/20 to-transparent opacity-60 blur-2xl"
+          className="absolute -inset-10 -z-10 rounded-[3rem] bg-gradient-to-br from-violet/40 via-blue/25 to-silver/10 opacity-70 blur-[50px]"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-blue/25 via-transparent to-violet/25 opacity-60 blur-2xl"
         />
       </div>
     </div>

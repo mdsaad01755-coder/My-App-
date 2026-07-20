@@ -5,6 +5,7 @@ import { motion, type Variants } from "framer-motion";
 import gsap from "gsap";
 import { useHeroParallax } from "@/lib/useHeroParallax";
 import HeroPortrait from "@/components/HeroPortrait";
+import HeroParticles from "@/components/HeroParticles";
 import MagneticButton from "@/components/MagneticButton";
 import { prefersReducedMotion } from "@/lib/performance";
 
@@ -102,6 +103,8 @@ export default function Hero() {
         />
         {/* Ambient mesh gradient — very slow drift, reads as texture */}
         <div className="mesh-gradient absolute inset-0" />
+        {/* Subtle bokeh particles — perf-tier gated inside the component */}
+        <HeroParticles />
         {/* Grain texture for tactile depth */}
         <div className="grain-overlay absolute inset-0" />
         {/* Vignette to keep edges dark and focus centered */}
