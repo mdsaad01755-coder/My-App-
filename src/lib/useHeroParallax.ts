@@ -102,7 +102,6 @@ export function useHeroParallax({
 
     const unwatch = watchAnimationTier(() => {
       ctx?.revert();
-      ScrollTrigger.getAll().forEach((st) => st.kill());
       build();
     });
 

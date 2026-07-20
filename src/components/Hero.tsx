@@ -87,19 +87,11 @@ export default function Hero() {
       >
         <div
           ref={blobARef}
-          className="aurora-blob-a absolute left-1/2 top-1/3 h-[38rem] w-[38rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px] sm:h-[46rem] sm:w-[46rem]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(124,92,255,0.55) 0%, rgba(124,92,255,0) 70%)",
-          }}
+          className="aurora-blob-a absolute left-1/2 top-1/3 h-[38rem] w-[38rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[image:radial-gradient(circle,rgba(124,92,255,0.55)_0%,rgba(124,92,255,0)_70%)] blur-[120px] sm:h-[46rem] sm:w-[46rem]"
         />
         <div
           ref={blobBRef}
-          className="aurora-blob-b absolute left-1/2 top-2/3 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[110px] sm:h-[38rem] sm:w-[38rem]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(62,142,255,0.45) 0%, rgba(62,142,255,0) 70%)",
-          }}
+          className="aurora-blob-b absolute left-1/2 top-2/3 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[image:radial-gradient(circle,rgba(62,142,255,0.45)_0%,rgba(62,142,255,0)_70%)] blur-[110px] sm:h-[38rem] sm:w-[38rem]"
         />
         {/* Ambient mesh gradient — very slow drift, reads as texture */}
         <div className="mesh-gradient absolute inset-0" />
@@ -108,13 +100,7 @@ export default function Hero() {
         {/* Grain texture for tactile depth */}
         <div className="grain-overlay absolute inset-0" />
         {/* Vignette to keep edges dark and focus centered */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, transparent 35%, #08080c 90%)",
-          }}
-        />
+        <div className="absolute inset-0 bg-[image:radial-gradient(ellipse_at_center,transparent_35%,#08080c_90%)]" />
       </div>
 
       <div className="relative z-10 mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">

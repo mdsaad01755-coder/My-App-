@@ -24,13 +24,7 @@ export default function FinalCta() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 overflow-hidden"
       >
-        <div
-          className="absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(124,92,255,0.35) 0%, rgba(62,142,255,0.15) 45%, transparent 75%)",
-          }}
-        />
+        <div className="absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[image:radial-gradient(circle,rgba(124,92,255,0.35)_0%,rgba(62,142,255,0.15)_45%,transparent_75%)] blur-[120px]" />
       </div>
 
       <motion.div

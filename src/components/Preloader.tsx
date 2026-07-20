@@ -129,23 +129,13 @@ export default function Preloader() {
       aria-hidden="true"
     >
       {/* Vignette so the edges stay pure black and focus pulls to center */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 40%, #000000 92%)",
-        }}
-      />
+      <div className="pointer-events-none absolute inset-0 bg-[image:radial-gradient(ellipse_at_center,transparent_40%,#000000_92%)]" />
 
       <div className="relative flex flex-col items-center">
         {/* Soft ambient glow behind the portrait */}
         <div
           ref={glowRef}
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[70%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 blur-[80px]"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(124,92,255,0.35) 0%, rgba(62,142,255,0.15) 45%, transparent 75%)",
-          }}
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[70%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[image:radial-gradient(circle,rgba(124,92,255,0.35)_0%,rgba(62,142,255,0.15)_45%,transparent_75%)] opacity-0 blur-[80px]"
         />
 
         {/* eslint-disable-next-line @next/next/no-img-element -- 
@@ -157,6 +147,8 @@ export default function Preloader() {
           ref={imageRef}
           src={`${basePath}/preloader.png`}
           alt=""
+          loading="eager"
+          fetchPriority="high"
           className="relative h-[42vh] w-auto max-w-[70vw] object-contain opacity-0 sm:h-[50vh] sm:max-w-[60vw] md:h-[56vh]"
           draggable={false}
         />

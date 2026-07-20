@@ -143,8 +143,7 @@ export default function HeroPortrait() {
   return (
     <div
       ref={wrapRef}
-      className="relative mx-auto w-full max-w-[280px] pb-8 sm:max-w-[320px] md:max-w-[380px]"
-      style={{ perspective: "1200px" }}
+      className="relative mx-auto w-full max-w-[280px] pb-8 [perspective:1200px] sm:max-w-[320px] md:max-w-[380px]"
     >
       {/* Dynamic drop shadow: separate layer so it can move/blur
           independently of the card's own transform. */}
@@ -156,8 +155,7 @@ export default function HeroPortrait() {
 
       <div
         ref={imgRef}
-        className="group relative will-change-transform"
-        style={{ transformStyle: "preserve-3d" }}
+        className="group relative will-change-transform [transform-style:preserve-3d]"
       >
         {/* Glassmorphism outer frame: sits outside the image's own
             rounded edge, never overlapping the face/subject — just a
@@ -170,8 +168,7 @@ export default function HeroPortrait() {
 
         <div
           ref={cardRef}
-          className="relative overflow-hidden rounded-[1.75rem] border border-silver/15 shadow-[0_30px_80px_-20px_rgba(124,92,255,0.35)] transition-shadow duration-500 group-hover:shadow-[0_40px_100px_-16px_rgba(124,92,255,0.55)]"
-          style={{ transformStyle: "preserve-3d", willChange: "transform" }}
+          className="relative overflow-hidden rounded-[1.75rem] border border-silver/15 shadow-[0_30px_80px_-20px_rgba(124,92,255,0.35)] transition-shadow duration-500 [transform-style:preserve-3d] [will-change:transform] group-hover:shadow-[0_40px_100px_-16px_rgba(124,92,255,0.55)]"
         >
           {/* eslint-disable-next-line @next/next/no-img-element --
               static export (images.unoptimized: true); next/image adds
@@ -180,6 +177,7 @@ export default function HeroPortrait() {
           <img
             src={`${basePath}/preloader.png`}
             alt="Product founder portrait"
+            loading="eager"
             className="aspect-[3/4] w-full origin-center object-cover object-top transition-transform duration-700 ease-out [transform:translateZ(20px)_scale(1.02)] group-hover:[transform:translateZ(20px)_scale(1.08)]"
             draggable={false}
           />
