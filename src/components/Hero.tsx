@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import gsap from "gsap";
 import { useHeroParallax } from "@/lib/useHeroParallax";
 import HeroPortrait from "@/components/HeroPortrait";
@@ -28,6 +28,7 @@ export default function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
   const portraitRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useHeroParallax({
     section: sectionRef,
@@ -172,13 +173,17 @@ export default function Hero() {
 
         {/* Floating 3D portrait */}
         <motion.div
-          initial={{ opacity: 0, y: 60, scale: 0.92 }}
+          initial={
+            shouldReduceMotion
+              ? { opacity: 1, y: 0, scale: 1 }
+              : { opacity: 0, y: 60, scale: 0.92 }
+          }
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{
-            duration: 1,
-            delay: 0.3,
-            ease: [0.16, 1, 0.3, 1],
-          }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }
+          }
         >
           {/* Separate inner node for GSAP's scroll-linked parallax, so
               it never fights Framer Motion's transform on the outer

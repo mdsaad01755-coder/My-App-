@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { getAnimationTier, watchAnimationTier } from "@/lib/performance";
 
@@ -170,17 +171,17 @@ export default function HeroPortrait() {
           ref={cardRef}
           className="relative overflow-hidden rounded-[1.75rem] border border-silver/15 shadow-[0_30px_80px_-20px_rgba(124,92,255,0.35)] transition-shadow duration-500 [transform-style:preserve-3d] [will-change:transform] group-hover:shadow-[0_40px_100px_-16px_rgba(124,92,255,0.55)]"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element --
-              static export (images.unoptimized: true); next/image adds
-              no build-time benefit here and this keeps the tilt/float
-              transform chain simple with a single DOM node to animate. */}
-          <img
-            src={`${basePath}/preloader.png`}
-            alt="Product founder portrait"
-            loading="eager"
-            className="aspect-[3/4] w-full origin-center object-cover object-top transition-transform duration-700 ease-out [transform:translateZ(20px)_scale(1.02)] group-hover:[transform:translateZ(20px)_scale(1.08)]"
-            draggable={false}
-          />
+          <div className="relative aspect-[3/4] w-full origin-center [transform:translateZ(20px)_scale(1.02)] transition-transform duration-700 ease-out group-hover:[transform:translateZ(20px)_scale(1.08)]">
+            <Image
+              src={`${basePath}/preloader.png`}
+              alt="Product founder portrait"
+              fill
+              priority
+              sizes="(min-width: 768px) 380px, (min-width: 640px) 320px, 280px"
+              className="object-cover object-top"
+              draggable={false}
+            />
+          </div>
 
           {/* Subtle glass edge highlight */}
           <div
@@ -218,14 +219,16 @@ export default function HeroPortrait() {
         </div>
 
         {/* Ambient accent glow behind the card — brighter and wider than
-            before so the portrait reads as "floating in light". */}
+            before so the portrait reads as "floating in light". Blur
+            radius is lighter on mobile (cheaper to paint/repaint on
+            weaker devices) and scales up on larger screens. */}
         <div
           aria-hidden="true"
-          className="absolute -inset-10 -z-10 rounded-[3rem] bg-gradient-to-br from-violet/40 via-blue/25 to-silver/10 opacity-70 blur-[50px]"
+          className="absolute -inset-6 -z-10 rounded-[3rem] bg-gradient-to-br from-violet/40 via-blue/25 to-silver/10 opacity-70 blur-[28px] sm:-inset-8 sm:blur-[38px] md:-inset-10 md:blur-[50px]"
         />
         <div
           aria-hidden="true"
-          className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-blue/25 via-transparent to-violet/25 opacity-60 blur-2xl"
+          className="absolute -inset-3 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-blue/25 via-transparent to-violet/25 opacity-60 blur-lg sm:-inset-4 sm:blur-2xl"
         />
       </div>
     </div>
